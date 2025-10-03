@@ -1,42 +1,15 @@
 /* ==================
-   STRUCTURE GLOBALE
-================== */
-
-html, body {
-  height: 100%;
-  margin: 0;
-  padding: 0;
-  display: flex;
-  flex-direction: column;
-  background: radial-gradient(circle at center, #0a0a0f, #000);
-  font-family: 'Orbitron', sans-serif; /* police style futuriste */
-}
-
-/* ==================
-   CONTENEUR PRINCIPAL
-================== */
-
-main.form-container {
-  flex: 1;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: transparent;
-  width: 100%;
-}
-
-/* ==================
    FORMULAIRE
 ================== */
 
 form {
   position: relative;
-  background: rgba(18, 18, 18, 0.6);
-  backdrop-filter: blur(12px); /* effet verre */
-  border-radius: 16px;
+  background: rgba(18, 18, 18, 0.85); /* Fond un peu plus opaque pour la lisibilité */
+  border: 2px solid rgba(0, 255, 198, 0.4);
+  border-radius: 20px;
   width: 420px;
   max-width: 90%;
-  padding: 30px;
+  padding: 35px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -44,78 +17,80 @@ form {
   gap: 20px;
   box-sizing: border-box;
   z-index: 1;
-  overflow: hidden;
   color: #00ffc6;
+  box-shadow: 0 0 25px rgba(0, 255, 198, 0.2);
   text-shadow: 0 0 10px rgba(0, 255, 198, 0.7);
-  box-shadow: inset 0 0 40px rgba(0, 255, 198, 0.2);
+  backdrop-filter: none; /* ✅ plus de flou */
 }
 
-/* === Bordure animée === */
+
+/* === Bordure élégante et professionnelle === */
 form::before {
   content: "";
   position: absolute;
-  top: -3px;
-  left: -3px;
-  right: -3px;
-  bottom: -3px;
-  border-radius: 18px;
-  background: conic-gradient(
-    from 0deg,
-    #00ffc6,
-    #00bfa6,
-    #0ff,
-    #00ffc6
+  inset: 0;
+  border-radius: 20px;
+  
+  /* 🎨 Dégradé très doux, inspiré des interfaces scientifiques */
+  background: linear-gradient(
+    145deg,
+    rgba(0, 255, 198, 0.15),
+    rgba(0, 191, 166, 0.1),
+    rgba(0, 200, 255, 0.08)
   );
+
   z-index: -1;
-  animation: rotateBorder 4s linear infinite, glowPulse 2.5s ease-in-out infinite;
-  mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
-  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
-  -webkit-mask-composite: xor;
-  mask-composite: exclude;
-  padding: 3px;
-  filter: blur(10px) brightness(2);
-  box-shadow: 0 0 20px #00ffc6, 0 0 40px #00bfa6, 0 0 80px #0ff;
-  opacity: 0.9;
+  padding: 2px;
+
+  /* ✨ Effet néon discret */
+  filter: blur(1px);
+  opacity: 0.7;
+  box-shadow:
+    0 0 12px rgba(0, 255, 198, 0.15),
+    0 0 24px rgba(0, 191, 166, 0.12),
+    0 0 48px rgba(0, 200, 255, 0.08);
+
+  /* 🌬️ Animation subtile de “respiration” */
+  animation: softBreathe 8s ease-in-out infinite alternate;
 }
 
-/* === Lueur intérieure === */
-form::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: 16px;
-  background: radial-gradient(
-    circle at center,
-    rgba(0, 255, 198, 0.15) 0%,
-    rgba(0, 191, 166, 0.08) 40%,
-    transparent 80%
-  );
-  box-shadow: inset 0 0 40px rgba(0, 255, 198, 0.25),
-              inset 0 0 80px rgba(0, 191, 166, 0.15),
-              inset 0 0 120px rgba(0, 255, 255, 0.1);
-  animation: innerGlow 3.5s ease-in-out infinite;
-  pointer-events: none;
-  z-index: 0;
+/* 🩵 Animation minimaliste et douce */
+@keyframes softBreathe {
+  0% {
+    opacity: 0.55;
+    box-shadow:
+      0 0 8px rgba(0, 255, 198, 0.12),
+      0 0 16px rgba(0, 191, 166, 0.08),
+      0 0 32px rgba(0, 200, 255, 0.06);
+  }
+  100% {
+    opacity: 0.85;
+    box-shadow:
+      0 0 14px rgba(0, 255, 198, 0.2),
+      0 0 28px rgba(0, 191, 166, 0.15),
+      0 0 56px rgba(0, 200, 255, 0.1);
+  }
 }
+
+
+
+
 
 /* ==================
-   CHAMPS DE FORMULAIRE
+   CHAMPS
 ================== */
 
 form input,
 form textarea,
 form select {
   width: 100%;
-  background: rgba(255, 255, 255, 0.05);
+  background: rgba(255, 255, 255, 0.07);
   color: #00ffc6;
-  border: 1px solid rgba(0, 255, 198, 0.5);
-  padding: 12px;
+  border: 1px solid rgba(0, 255, 198, 0.4);
+  padding: 14px;
   border-radius: 10px;
-  box-sizing: border-box;
   font-size: 1rem;
-  text-shadow: 0 0 5px rgba(0, 255, 198, 0.7);
-  transition: all 0.3s ease;
-  backdrop-filter: blur(5px);
+  text-shadow: 0 0 5px rgba(0, 255, 198, 0.5);
   transition: all 0.3s ease;
 }
 
@@ -124,52 +99,44 @@ form textarea::placeholder {
   color: rgba(0, 255, 198, 0.4);
 }
 
-form input:focus,
-form textarea:focus,
-form select:focus,
+/* ✅ Illumination au survol et focus */
 form input:hover,
 form textarea:hover,
-form select:hover {
+form select:hover,
+form input:focus,
+form textarea:focus,
+form select:focus {
   outline: none;
   border-color: #00FFC6; 
   box-shadow: 0 0 15px #00FFC6;
-  background: rgba(0, 255, 198, 0.08);
-  transition: all 0.3s ease;
+  background: rgba(0, 255, 198, 0.1);
 }
-
 
 /* ==================
    BOUTON
 ================== */
 
 form button {
-  display: block;
-  margin: 20px auto 0 auto; /* ✅ centre parfaitement */
+  margin-top: 15px;
   width: 80%;
-  max-width: 300px; /* limite pour grand écran */
+  max-width: 300px;
   padding: 16px 30px;
   text-align: center;
-  
   background: linear-gradient(120deg, #00ffc6, #00bfa6, #0ff);
   background-size: 200% 200%;
   animation: buttonFlow 5s linear infinite;
-
   color: #121212;
   font-weight: 700;
   font-size: 1.2rem;
   letter-spacing: 1px;
   text-transform: uppercase;
-
   border: none;
   border-radius: 50px;
   cursor: pointer;
   box-shadow: 0 0 20px rgba(0, 255, 198, 0.6),
               0 0 40px rgba(0, 191, 166, 0.4);
-  transition: all 0.3s ease, transform 0.3s ease;
-  position: relative;
-  overflow: hidden;
+  transition: all 0.3s ease;
 }
-
 
 form button:hover {
   transform: scale(1.05);
@@ -183,7 +150,6 @@ form button:active {
   box-shadow: 0 0 20px rgba(0, 255, 198, 0.9);
 }
 
-
 /* ==================
    ANIMATIONS
 ================== */
@@ -191,24 +157,6 @@ form button:active {
 @keyframes rotateBorder {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
-}
-
-@keyframes glowPulse {
-  0%, 100% { filter: blur(8px) brightness(1.5); opacity: 0.7; }
-  50% { filter: blur(14px) brightness(3); opacity: 1; }
-}
-
-@keyframes innerGlow {
-  0%, 100% {
-    box-shadow: inset 0 0 40px rgba(0, 255, 198, 0.25),
-                inset 0 0 80px rgba(0, 191, 166, 0.15),
-                inset 0 0 120px rgba(0, 255, 255, 0.1);
-  }
-  50% {
-    box-shadow: inset 0 0 70px rgba(0, 255, 198, 0.4),
-                inset 0 0 120px rgba(0, 191, 166, 0.25),
-                inset 0 0 200px rgba(0, 255, 255, 0.15);
-  }
 }
 
 @keyframes buttonFlow {
@@ -224,54 +172,10 @@ form button:active {
 @media (max-width: 600px) {
   form {
     width: 90%;
-    padding: 20px;
-  }
-
-  form button {
-    width: 100%;
-  }
-}
-
-/* =============================
-   📱 RESPONSIVE - CONTACT.CSS
-   ============================= */
-@media (max-width: 900px) {
-
-  /* 📬 Conteneur */
-  main.form-container {
-    padding: 30px 15px;
-    align-items: flex-start;
-  }
-
-  /* 📬 Formulaire */
-  form {
-    width: 100%;
-    max-width: 600px;
     padding: 25px;
-    border-radius: 15px;
-  }
-
-  form input,
-  form textarea,
-  form select {
-    font-size: 1.1rem;
-    padding: 14px;
   }
 
   form button {
     width: 100%;
-    font-size: 1.2rem;
-    padding: 14px 0;
-    border-radius: 10px;
-    margin-top: 20px;
-  }
-
-  /* ✨ Focus et hover sur mobile */
-  form input:hover,
-  form textarea:hover,
-  form select:hover {
-    border-color: #00ffc6;
-    box-shadow: 0 0 10px #00ffc6;
-    transition: all 0.3s ease;
   }
 }

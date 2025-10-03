@@ -198,78 +198,140 @@ footer {
 }
 
 
-/* ===== DROPDOWN MENU ===== */
+/* =====================
+   🔽 MENU DÉROULANT
+===================== */
+
 .dropdown {
   position: relative;
   display: inline-block;
 }
 
 .dropbtn {
-  background: rgba(0, 255, 198, 0.08);
-  color: #00ffc6;
-  padding: 12px 28px;
-  font-size: 1.1rem;
-  font-weight: bold;
-  border: none;
-  cursor: pointer;
-  border-radius: 50px;
-  display: inline-flex;
+  display: flex;
   align-items: center;
-  gap: 8px;
+  justify-content: center;
+  background: linear-gradient(120deg, #00ffc6, #00bfa6);
+  color: #0a0a0a;
+  font-weight: 700;
+  padding: 14px 28px;
+  border-radius: 40px;
+  text-decoration: none;
+  font-size: 1.1rem;
+  letter-spacing: 0.5px;
   transition: all 0.3s ease;
+  cursor: pointer;
 }
 
 .dropbtn:hover {
-  background: linear-gradient(135deg, #00ffc6, #00bfa6);
-  color: #121212;
-  box-shadow: 0 0 20px #00ffc6;
-  transform: scale(1.05);
+  background: linear-gradient(120deg, #00bfa6, #00ffc6);
+  box-shadow: 0 0 15px rgba(0, 255, 198, 0.6);
+  transform: scale(1.03);
 }
 
-/* Contenu du menu */
+/* =====================
+   🔽 CONTENU DU MENU
+===================== */
+
 .dropdown-content {
-  display: none;
   position: absolute;
-  background: #0d0d0d;
-  min-width: 230px;
-  box-shadow: 0 0 20px rgba(0, 255, 198, 0.4);
-  border-radius: 12px;
-  overflow: hidden;
-  z-index: 1000;
-  top: 100%;
+  top: 110%;
   left: 50%;
-  transform: translateX(-50%);
+  transform: translateX(-50%) scaleY(0);
+  transform-origin: top;
+  min-width: 250px;
+  background: rgba(15, 15, 20, 0.95);
+  border: 1px solid rgba(0, 255, 198, 0.3);
+  border-radius: 16px;
+  box-shadow: 0 0 20px rgba(0, 255, 198, 0.2);
+  padding: 10px 0;
+  display: flex;
+  flex-direction: column;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.35s ease;
+  backdrop-filter: blur(8px);
+  z-index: 1000;
 }
 
-/* Liens dans le menu */
+/* ✨ Animation d'ouverture élégante */
+.dropdown:hover .dropdown-content {
+  transform: translateX(-50%) scaleY(1);
+  opacity: 1;
+  visibility: visible;
+}
+
+/* =====================
+   📁 CATÉGORIES
+===================== */
+
+.dropdown-section {
+  padding: 10px 20px;
+  border-bottom: 1px solid rgba(0, 255, 198, 0.1);
+}
+
+.dropdown-section:last-child {
+  border-bottom: none;
+}
+
+.dropdown-section h4 {
+  font-size: 1rem;
+  color: #00ffc6;
+  margin-bottom: 8px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  text-shadow: 0 0 8px rgba(0, 255, 198, 0.5);
+}
+
+/* =====================
+   📎 LIENS MINI-JEUX
+===================== */
+
 .dropdown-content a {
   display: block;
-  padding: 12px 20px;
-  text-decoration: none;
-  color: #00ffc6;
+  width: 100%;
+  text-align: left;
+  padding: 12px 18px;
+  color: #e0fdf9;
   font-size: 1rem;
+  text-decoration: none;
   transition: all 0.3s ease;
+  border-radius: 8px;
+  margin-bottom: 4px;
+  box-sizing: border-box;
+}
+
+/* ✅ Taille uniforme */
+.dropdown-content a i {
+  width: 25px;
+  text-align: center;
+  margin-right: 6px;
+  color: #00ffc6;
 }
 
 .dropdown-content a:hover {
-  background: linear-gradient(135deg, #00ffc6, #00bfa6);
-  color: #121212;
-  padding-left: 25px;
+  background: rgba(0, 255, 198, 0.12);
+  color: #00ffc6;
+  padding-left: 24px;
+  box-shadow: 0 0 12px rgba(0, 255, 198, 0.2);
+  transform: translateX(4px);
 }
 
-/* Afficher au survol */
-.dropdown:hover .dropdown-content {
-  display: block;
-}
-
-/* Ajustement pour mobile */
+/* 📱 Responsive */
 @media (max-width: 768px) {
+  .dropbtn {
+    width: 100%;
+    text-align: center;
+  }
+
   .dropdown-content {
-    position: static;
-    transform: none;
-    box-shadow: none;
+    min-width: 90vw;
+    left: 50%;
+    transform: translateX(-50%) scaleY(0);
   }
 }
+
 
 /* ===== NAVBAR ===== */
 .navbar {

@@ -1,0 +1,177 @@
+/* ============================
+   🌌 Fond animé MathLab + Superposition mathématique
+   Version Pro, Futuriste & Responsive
+============================ */
+
+/* ----- Styles généraux ----- */
+html, body {
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  width: 100%;
+  background: #000;
+  font-family: 'Orbitron', sans-serif;
+  overflow-x: hidden;
+}
+
+/* ----- Fond principal ----- */
+body {
+  background-image: url("assets/backgrounds/bg-desktop.jpg");
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+  position: relative;
+
+  /* ✨ Animation lumière subtile */
+  animation: softLight 45s ease-in-out infinite alternate;
+  filter: brightness(0.92) contrast(1.05);
+}
+
+/* 📱 Mobile */
+@media (max-width: 768px) {
+  body {
+    background-image: url("assets/backgrounds/bg-mobile.jpg");
+  }
+}
+
+/* 📊 Tablette */
+@media (min-width: 769px) and (max-width: 1440px) {
+  body {
+    background-image: url("assets/backgrounds/bg-tablette.jpg");
+  }
+}
+
+/* 💻 Desktop */
+@media (min-width: 1441px) {
+  body {
+    background-image: url("assets/backgrounds/bg-desktop.jpg");
+  }
+}
+
+/* ----- Lumière qui "respire" ----- */
+@keyframes softLight {
+  0% {
+    filter: brightness(0.9) saturate(1) hue-rotate(0deg);
+    background-position: center top;
+  }
+  50% {
+    filter: brightness(1) saturate(1.05) hue-rotate(10deg);
+    background-position: center center;
+  }
+  100% {
+    filter: brightness(0.92) saturate(1) hue-rotate(-10deg);
+    background-position: center bottom;
+  }
+}
+
+/* ----- Effet holographique animé ----- */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  background: linear-gradient(
+    120deg,
+    rgba(0, 255, 198, 0.08),
+    rgba(0, 191, 166, 0.05),
+    rgba(0, 200, 255, 0.06)
+  );
+  background-size: 300% 300%;
+  animation: holoFlow 25s ease-in-out infinite alternate;
+  mix-blend-mode: screen;
+  pointer-events: none;
+  opacity: 0.25;
+}
+
+@keyframes holoFlow {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* ============================
+   🔢 Superposition mathématique
+============================ */
+
+body::after {
+  content: "Σ ∫ π √ α β γ ∆ ∑ θ ∞ ∇ ≈ 42 3.14 e=mc² sin(x) logₑ x → λ δ µ ϕ ∴";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  font-size: 5rem;
+  font-weight: 700;
+  color: rgba(0, 255, 198, 0.05);
+  white-space: nowrap;
+  letter-spacing: 0.5rem;
+  line-height: 1.5;
+  overflow: hidden;
+  user-select: none;
+  pointer-events: none;
+
+  /* ✨ Effet de défilement lent */
+  animation: floatMath 120s linear infinite;
+  text-shadow:
+    0 0 15px rgba(0, 255, 198, 0.08),
+    0 0 30px rgba(0, 191, 166, 0.06);
+}
+
+@keyframes floatMath {
+  0% {
+    transform: translateY(0) translateX(0);
+  }
+  50% {
+    transform: translateY(-10%) translateX(-5%);
+  }
+  100% {
+    transform: translateY(0) translateX(0);
+  }
+}
+
+/* ============================
+   🔢 Superposition mathématique avec parallaxe
+============================ */
+
+/* ✅ Conteneur des formules dynamiques */
+#math-layer {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  font-size: 5rem;
+  font-weight: 700;
+  color: rgba(0, 255, 198, 0.05);
+  white-space: nowrap;
+  letter-spacing: 0.5rem;
+  line-height: 1.5;
+  user-select: none;
+  pointer-events: none;
+  text-shadow:
+    0 0 15px rgba(0, 255, 198, 0.08),
+    0 0 30px rgba(0, 191, 166, 0.06);
+  will-change: transform;
+  transition: transform 0.2s ease-out;
+}
+
+/* Effet de défilement lent + animation continue */
+#math-layer span {
+  display: inline-block;
+  animation: floatMath 120s linear infinite;
+}
+
+@keyframes floatMath {
+  0% {
+    transform: translateY(0) translateX(0);
+  }
+  50% {
+    transform: translateY(-10%) translateX(-5%);
+  }
+  100% {
+    transform: translateY(0) translateX(0);
+  }
+}
