@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jeu des Additions - MathLab</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../style.css">
+  <link rel="stylesheet" href="additions.css">
+
+  <style>
+    body {
+      background: radial-gradient(circle at top, #050510, #000);
+      color: #00ffc6;
+      font-family: 'Orbitron', sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      min-height: 100vh;
+      padding: 0;
+      margin: 0;
+    }
+
+    header {
+      width: 100%;
+      background: linear-gradient(135deg, #000, #021b3a, #00bfa6);
+      padding: 20px;
+      text-align: center;
+      font-size: 1.8rem;
+      color: #00ffc6;
+      text-shadow: 0 0 15px #00ffc6;
+    }
+
+    main {
+      text-align: center;
+      padding: 30px 20px;
+      max-width: 600px;
+      width: 100%;
+    }
+
+    .game-container {
+      background: rgba(0, 255, 198, 0.05);
+      border: 2px solid rgba(0, 255, 198, 0.4);
+      border-radius: 20px;
+      padding: 30px;
+      backdrop-filter: blur(8px);
+      box-shadow: 0 0 30px rgba(0, 255, 198, 0.3);
+      margin-top: 30px;
+    }
+
+    .stats {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 20px;
+      font-size: 1.3rem;
+      text-shadow: 0 0 10px #00ffc6;
+    }
+
+    .question {
+      font-size: 2.5rem;
+      margin: 20px 0;
+      text-shadow: 0 0 15px #00ffc6;
+    }
+
+    input[type="number"] {
+      padding: 10px;
+      font-size: 1.5rem;
+      border: 2px solid #00bfa6;
+      border-radius: 10px;
+      text-align: center;
+      background: rgba(255,255,255,0.05);
+      color: #00ffc6;
+      width: 120px;
+      outline: none;
+      box-shadow: 0 0 10px rgba(0,255,198,0.3);
+    }
+
+    button {
+      margin-top: 20px;
+      padding: 14px 30px;
+      font-size: 1.2rem;
+      font-weight: bold;
+      color: #121212;
+      background: linear-gradient(120deg, #00ffc6, #00bfa6, #0ff);
+      border: none;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: 0.3s;
+      box-shadow: 0 0 20px #00ffc6;
+    }
+
+    button:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 30px #00bfa6;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .end-screen {
+      margin-top: 20px;
+    }
+
+    .end-screen h2 {
+      font-size: 2rem;
+      margin-bottom: 10px;
+      text-shadow: 0 0 20px #00ffc6;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    Jeu des Additions 🧮
+  </header>
+
+  <main>
+    <div class="game-container" id="game">
+      <div class="stats">
+        <div>⏱️ Temps : <span id="time">60</span>s</div>
+        <div>🏆 Score : <span id="score">0</span></div>
+      </div>
+
+      <div class="question" id="question">3 + 5 = ?</div>
+
+      <input type="number" id="answer" placeholder="Votre réponse" autofocus />
+      <br>
+      <button onclick="checkAnswer()">Valider</button>
+    </div>
+
+    <div class="end-screen hidden" id="end">
+      <h2>⏱️ Temps écoulé !</h2>
+      <p>Votre score : <span id="finalScore">0</span></p>
+      <button onclick="restartGame()">Rejouer</button>
+      <a href="../Mini_Jeux.html"><button>Retour aux Mini_Jeux</button></a>
+    </div>
+  </main>
+
+  <script>
+    let score = 0;
+    let timeLeft = 60;
+    let a, b;
+
+    const questionEl = document.getElementById('question');
+    const answerEl = document.getElementById('answer');
+    const scoreEl = document.getElementById('score');
+    const timeEl = document.getElementById('time');
+    const finalScoreEl = document.getElementById('finalScore');
+
+    const game = document.getElementById('game');
+    const end = document.getElementById('end');
+
+    function newQuestion() {
+      a = Math.floor(Math.random() * 10) + 1;
+      b = Math.floor(Math.random() * 10) + 1;
+      questionEl.textContent = `${a} + ${b} = ?`;
+      answerEl.value = '';
+      answerEl.focus();
+    }
+
+    function checkAnswer() {
+      const answer = parseInt(answerEl.value);
+      if (answer === a + b) {
+        score++;
+        scoreEl.textContent = score;
+      }
+      newQuestion();
+    }
+
+    function startTimer() {
+      const timer = setInterval(() => {
+        timeLeft--;
+        timeEl.textContent = timeLeft;
+        if (timeLeft <= 0) {
+          clearInterval(timer);
+          endGame();
+        }
+      }, 1000);
+    }
+
+    function endGame() {
+      game.classList.add('hidden');
+      end.classList.remove('hidden');
+      finalScoreEl.textContent = score;
+    }
+
+    function restartGame() {
+      score = 0;
+      timeLeft = 60;
+      scoreEl.textContent = score;
+      timeEl.textContent = timeLeft;
+      end.classList.add('hidden');
+      game.classList.remove('hidden');
+      newQuestion();
+      startTimer();
+    }
+
+    // Init
+    newQuestion();
+    startTimer();
+
+    // Entrée clavier pour valider
+    answerEl.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') checkAnswer();
+    });
+  </script>
+  <script>
+  // ✅ Enregistrer automatiquement le score dans le classement
+  if (window.MathLabScores && window.MathLabScores.save) {
+    window.MathLabScores.save('additions', resultat);
+    }
+  </script>
+</body>
+</html>

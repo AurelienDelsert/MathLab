@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Défi du jour - MathLab</title>
+
+  <!-- ✅ Fonts & Librairies -->
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet" />
+
+  <!-- ✅ Styles -->
+  <link rel="stylesheet" href="/style.css" />
+  <style>
+    body {
+      background: linear-gradient(135deg, #000000, #011b3f, #0d0d0d);
+      color: #ffffff;
+      font-family: 'Orbitron', sans-serif;
+      text-align: center;
+      margin: 0;
+      padding: 0;
+    }
+
+    main {
+      padding: 60px 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    h1 {
+      font-size: 2.8rem;
+      color: #00ffc6;
+      margin-bottom: 15px;
+      text-shadow: 0 0 15px #00ffc6;
+    }
+
+    .description {
+      font-size: 1.2rem;
+      color: #b0f5e0;
+      margin-bottom: 40px;
+      max-width: 700px;
+    }
+
+    .challenge-box {
+      background: rgba(0, 255, 198, 0.05);
+      border: 2px solid rgba(0, 255, 198, 0.4);
+      padding: 30px;
+      border-radius: 20px;
+      box-shadow: 0 0 30px rgba(0, 255, 198, 0.3);
+      max-width: 700px;
+      width: 100%;
+    }
+
+    #question {
+      font-size: 1.8rem;
+      margin-bottom: 25px;
+      color: #00ffc6;
+    }
+
+    #answer {
+      padding: 12px;
+      font-size: 1.5rem;
+      width: 200px;
+      text-align: center;
+      border-radius: 10px;
+      border: 2px solid #00ffc6;
+      background: #1e1e1e;
+      color: #ffffff;
+      margin-bottom: 15px;
+    }
+
+    #answer:focus {
+      outline: none;
+      border-color: #00bfa6;
+      box-shadow: 0 0 15px #00bfa6;
+    }
+
+    #submitBtn {
+      padding: 12px 30px;
+      font-size: 1.2rem;
+      border: none;
+      background: linear-gradient(135deg, #00ffc6, #00bfa6);
+      color: #121212;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 0 15px #00ffc6;
+    }
+
+    #submitBtn:hover {
+      background: linear-gradient(135deg, #00bfa6, #00ffc6);
+      box-shadow: 0 0 20px #00ffc6;
+      transform: scale(1.05);
+    }
+
+    #result {
+      font-size: 1.5rem;
+      margin-top: 20px;
+      display: none;
+    }
+
+    #result.correct { color: #00ffc6; }
+    #result.incorrect { color: #ff0040; }
+
+    #newChallengeBtn {
+      margin-top: 25px;
+      padding: 12px 30px;
+      font-size: 1.2rem;
+      border: none;
+      background: linear-gradient(135deg, #00ffc6, #00bfa6);
+      color: #121212;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: none;
+    }
+
+    #newChallengeBtn:hover {
+      background: linear-gradient(135deg, #00bfa6, #00ffc6);
+      box-shadow: 0 0 20px #00ffc6;
+      transform: scale(1.05);
+    }
+
+    @media (max-width: 900px) {
+      h1 { font-size: 2.2rem; }
+      #question { font-size: 1.5rem; }
+      #answer { width: 150px; font-size: 1.3rem; }
+      #submitBtn, #newChallengeBtn { width: 100%; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ==================
+       HEADER
+  ================== -->
+  <header>
+    <h1>MathLab - Défi du jour</h1>
+    <nav class="navbar">
+      <a href="/index/index.html"><i class="bi bi-house"></i> Accueil</a>
+      <a href="/Mini_Jeux/Mini_Jeux.html"><i class="bi bi-controller"></i> Mini_Jeux</a>
+      <a href="/Contact/contact.html"><i class="bi bi-envelope"></i> Contact</a>
+    </nav>
+  </header>
+
+  <!-- ==================
+       CONTENU PRINCIPAL
+  ================== -->
+  <main>
+    <h1>⚡ Défi du Jour</h1>
+    <p class="description">
+      Chaque jour, un nouveau défi de mathématiques t’attend 💡<br>
+      Tu n’as qu’<strong>UNE seule tentative</strong> pour donner la bonne réponse 😎
+    </p>
+
+    <div class="challenge-box">
+      <div id="question">Chargement du défi...</div>
+      <input type="text" id="answer" placeholder="Ta réponse" />
+      <br>
+      <button id="submitBtn">Valider ma réponse</button>
+      <div id="result"></div>
+      <button id="newChallengeBtn" onclick="generateChallenge()">🔄 Nouveau défi</button>
+    </div>
+  </main>
+
+  <!-- ==================
+       FOOTER
+  ================== -->
+  <footer>
+    © 2025 MathLab — Apprendre les maths en jouant 🎮
+  </footer>
+
+  <!-- ==================
+       SCRIPT DU DÉFI
+  ================== -->
+  <script>
+    const challenges = [
+      { q: "Combien font 15 × 4 ?", a: "60" },
+      { q: "Aire d’un carré de côté 7 cm ?", a: "49" },
+      { q: "Si un dé à 6 faces est lancé, quelle est la probabilité d’obtenir un 6 ?", a: "1/6" },
+      { q: "Somme des angles d’un triangle ?", a: "180" },
+      { q: "Résous : 100 ÷ 5 ?", a: "20" },
+      { q: "Combien d’arêtes a un cube ?", a: "12" },
+      { q: "Si 3x = 15, quelle est la valeur de x ?", a: "5" },
+      { q: "Périmètre d’un carré de côté 12 cm ?", a: "48" },
+      { q: "Combien de côtés a un octogone ?", a: "8" },
+      { q: "Résous : 45 - 17 ?", a: "28" }
+    ];
+
+    let currentChallenge;
+
+    function generateChallenge() {
+      currentChallenge = challenges[Math.floor(Math.random() * challenges.length)];
+      document.getElementById("question").textContent = currentChallenge.q;
+      document.getElementById("answer").value = "";
+      document.getElementById("result").style.display = "none";
+      document.getElementById("newChallengeBtn").style.display = "none";
+      document.getElementById("answer").disabled = false;
+      document.getElementById("submitBtn").disabled = false;
+    }
+
+    document.getElementById("submitBtn").addEventListener("click", () => {
+      const userAnswer = document.getElementById("answer").value.trim();
+      const resultEl = document.getElementById("result");
+
+      if (userAnswer.toLowerCase() === currentChallenge.a.toLowerCase()) {
+        resultEl.textContent = "✅ Bravo ! Réponse correcte 🎉";
+        resultEl.className = "correct";
+      } else {
+        resultEl.textContent = `❌ Mauvaise réponse 😅. La bonne réponse était : ${currentChallenge.a}`;
+        resultEl.className = "incorrect";
+      }
+
+      resultEl.style.display = "block";
+      document.getElementById("answer").disabled = true;
+      document.getElementById("submitBtn").disabled = true;
+      document.getElementById("newChallengeBtn").style.display = "inline-block";
+    });
+
+    window.onload = generateChallenge;
+  </script>
+  <script>
+    if (window.MathLabScores && window.MathLabScores.save) {
+      window.MathLabScores.save('defi', resultat);
+    }
+  </script>
+</body>
+</html>

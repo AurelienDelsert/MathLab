@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Multiplications - MathLab</title>
+
+  <!-- ✅ Fonts & Librairies -->
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet" />
+
+  <!-- ✅ Styles -->
+  <link rel="stylesheet" href="/style.css" />
+  <style>
+    body {
+      background: linear-gradient(135deg, #000000, #011b3f, #0d0d0d);
+      color: #ffffff;
+      font-family: 'Orbitron', sans-serif;
+      text-align: center;
+      padding: 0;
+      margin: 0;
+    }
+
+    main {
+      padding: 60px 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    h1 {
+      font-size: 2.8rem;
+      color: #00ffc6;
+      margin-bottom: 15px;
+      text-shadow: 0 0 15px #00ffc6;
+    }
+
+    .description {
+      font-size: 1.2rem;
+      color: #b0f5e0;
+      margin-bottom: 40px;
+    }
+
+    .game-container {
+      background: rgba(0, 255, 198, 0.05);
+      border: 2px solid rgba(0, 255, 198, 0.4);
+      padding: 30px;
+      border-radius: 20px;
+      box-shadow: 0 0 30px rgba(0, 255, 198, 0.3);
+      max-width: 500px;
+      width: 100%;
+    }
+
+    #timer {
+      font-size: 2rem;
+      color: #ff0040;
+      margin-bottom: 20px;
+      text-shadow: 0 0 10px #ff0040;
+    }
+
+    #question {
+      font-size: 2.5rem;
+      margin-bottom: 20px;
+      color: #00ffc6;
+    }
+
+    #answer {
+      padding: 12px;
+      font-size: 1.5rem;
+      width: 120px;
+      text-align: center;
+      border-radius: 10px;
+      border: 2px solid #00ffc6;
+      background: #1e1e1e;
+      color: #ffffff;
+    }
+
+    #answer:focus {
+      outline: none;
+      border-color: #00bfa6;
+      box-shadow: 0 0 15px #00bfa6;
+    }
+
+    #submitBtn {
+      margin-top: 20px;
+      padding: 12px 30px;
+      font-size: 1.2rem;
+      border: none;
+      background: linear-gradient(135deg, #00ffc6, #00bfa6);
+      color: #121212;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 0 15px #00ffc6;
+    }
+
+    #submitBtn:hover {
+      background: linear-gradient(135deg, #00bfa6, #00ffc6);
+      box-shadow: 0 0 20px #00ffc6;
+      transform: scale(1.05);
+    }
+
+    #score {
+      font-size: 1.5rem;
+      margin-top: 20px;
+      color: #00ffc6;
+    }
+
+    #result {
+      font-size: 1.8rem;
+      margin-top: 30px;
+      color: #ff0040;
+      display: none;
+    }
+
+    #restartBtn {
+      margin-top: 20px;
+      padding: 12px 30px;
+      font-size: 1.2rem;
+      border: none;
+      background: linear-gradient(135deg, #00ffc6, #00bfa6);
+      color: #121212;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: none;
+    }
+
+    #restartBtn:hover {
+      background: linear-gradient(135deg, #00bfa6, #00ffc6);
+      box-shadow: 0 0 20px #00ffc6;
+      transform: scale(1.05);
+    }
+
+    @media (max-width: 900px) {
+      h1 { font-size: 2.2rem; }
+      #question { font-size: 2rem; }
+      #answer { width: 100px; font-size: 1.3rem; }
+      #submitBtn, #restartBtn { width: 100%; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ==================
+       HEADER
+  ================== -->
+  <header>
+    <h1>MathLab - Multiplications Express</h1>
+    <nav class="navbar">
+      <a href="/index/index.html"><i class="bi bi-house"></i> Accueil</a>
+      <a href="/Mini_Jeux/Mini_Jeux.html"><i class="bi bi-controller"></i> Mini_Jeux</a>
+      <a href="/Contact/contact.html"><i class="bi bi-envelope"></i> Contact</a>
+    </nav>
+  </header>
+
+  <!-- ==================
+       CONTENU PRINCIPAL
+  ================== -->
+  <main>
+    <h1>✖️ Multiplications Express</h1>
+    <p class="description">Résous un maximum de multiplications en 60 secondes ⏱️ !</p>
+
+    <div class="game-container">
+      <div id="timer">⏱️ Temps : 60s</div>
+      <div id="question">5 × 7 = ?</div>
+      <input type="number" id="answer" placeholder="?" />
+      <br>
+      <button id="submitBtn">Valider</button>
+      <div id="score">✅ Score : 0</div>
+      <div id="result"></div>
+      <button id="restartBtn" onclick="startGame()">🔄 Rejouer</button>
+    </div>
+  </main>
+
+  <!-- ==================
+       FOOTER
+  ================== -->
+  <footer>
+    © 2025 MathLab — Apprendre les maths en jouant 🎮
+  </footer>
+
+  <!-- ==================
+       SCRIPT DU JEU
+  ================== -->
+  <script>
+    let score = 0;
+    let timeLeft = 60;
+    let timerInterval;
+    let correctAnswer;
+
+    const timerEl = document.getElementById('timer');
+    const questionEl = document.getElementById('question');
+    const answerInput = document.getElementById('answer');
+    const scoreEl = document.getElementById('score');
+    const resultEl = document.getElementById('result');
+    const restartBtn = document.getElementById('restartBtn');
+
+    function generateQuestion() {
+      let a = Math.floor(Math.random() * 12) + 1;
+      let b = Math.floor(Math.random() * 12) + 1;
+      correctAnswer = a * b;
+      questionEl.textContent = `${a} × ${b} = ?`;
+    }
+
+    function startGame() {
+      score = 0;
+      timeLeft = 60;
+      scoreEl.textContent = `✅ Score : ${score}`;
+      resultEl.style.display = 'none';
+      restartBtn.style.display = 'none';
+      answerInput.disabled = false;
+      document.getElementById('submitBtn').disabled = false;
+      generateQuestion();
+
+      timerInterval = setInterval(() => {
+        timeLeft--;
+        timerEl.textContent = `⏱️ Temps : ${timeLeft}s`;
+        if (timeLeft <= 0) endGame();
+      }, 1000);
+    }
+
+    function checkAnswer() {
+      const userAnswer = parseInt(answerInput.value);
+      if (userAnswer === correctAnswer) {
+        score++;
+        scoreEl.textContent = `✅ Score : ${score}`;
+      }
+      answerInput.value = '';
+      generateQuestion();
+    }
+
+    function endGame() {
+      clearInterval(timerInterval);
+      resultEl.style.display = 'block';
+      resultEl.textContent = `⏱️ Temps écoulé ! Ton score final est de ${score} points 🎉`;
+      restartBtn.style.display = 'inline-block';
+      answerInput.disabled = true;
+      document.getElementById('submitBtn').disabled = true;
+    }
+
+    document.getElementById('submitBtn').addEventListener('click', checkAnswer);
+    answerInput.addEventListener('keydown', e => { if (e.key === 'Enter') checkAnswer(); });
+
+    // Lancer automatiquement au chargement
+    window.onload = startGame;
+  </script>
+  <script>
+  if (window.MathLabScores && window.MathLabScores.save) {
+    window.MathLabScores.save('multiplications', resultat);
+  }
+  </script>
+</body>
+</html>

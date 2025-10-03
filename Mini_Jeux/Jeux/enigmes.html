@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Énigmes logiques - MathLab</title>
+
+  <!-- ✅ Fonts & Librairies -->
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet" />
+
+  <!-- ✅ Styles -->
+  <link rel="stylesheet" href="/style.css" />
+  <style>
+    body {
+      background: linear-gradient(135deg, #000000, #011b3f, #0d0d0d);
+      color: #ffffff;
+      font-family: 'Orbitron', sans-serif;
+      text-align: center;
+      padding: 0;
+      margin: 0;
+    }
+
+    main {
+      padding: 60px 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    h1 {
+      font-size: 2.8rem;
+      color: #00ffc6;
+      margin-bottom: 15px;
+      text-shadow: 0 0 15px #00ffc6;
+    }
+
+    .description {
+      font-size: 1.2rem;
+      color: #b0f5e0;
+      margin-bottom: 40px;
+    }
+
+    .game-container {
+      background: rgba(0, 255, 198, 0.05);
+      border: 2px solid rgba(0, 255, 198, 0.4);
+      padding: 30px;
+      border-radius: 20px;
+      box-shadow: 0 0 30px rgba(0, 255, 198, 0.3);
+      max-width: 600px;
+      width: 100%;
+    }
+
+    #timer {
+      font-size: 2rem;
+      color: #ff0040;
+      margin-bottom: 20px;
+      text-shadow: 0 0 10px #ff0040;
+    }
+
+    #question {
+      font-size: 1.5rem;
+      margin-bottom: 30px;
+      color: #00ffc6;
+    }
+
+    .answers {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 15px;
+    }
+
+    .answer-btn {
+      padding: 15px;
+      font-size: 1.2rem;
+      border: 2px solid #00ffc6;
+      border-radius: 12px;
+      background: #1e1e1e;
+      color: #ffffff;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .answer-btn:hover {
+      background: linear-gradient(135deg, #00ffc6, #00bfa6);
+      color: #121212;
+      box-shadow: 0 0 20px #00ffc6;
+      transform: scale(1.05);
+    }
+
+    #score {
+      font-size: 1.5rem;
+      margin-top: 20px;
+      color: #00ffc6;
+    }
+
+    #result {
+      font-size: 1.8rem;
+      margin-top: 30px;
+      color: #ff0040;
+      display: none;
+    }
+
+    #restartBtn {
+      margin-top: 20px;
+      padding: 12px 30px;
+      font-size: 1.2rem;
+      border: none;
+      background: linear-gradient(135deg, #00ffc6, #00bfa6);
+      color: #121212;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: none;
+    }
+
+    #restartBtn:hover {
+      background: linear-gradient(135deg, #00bfa6, #00ffc6);
+      box-shadow: 0 0 20px #00ffc6;
+      transform: scale(1.05);
+    }
+
+    @media (max-width: 900px) {
+      h1 { font-size: 2.2rem; }
+      #question { font-size: 1.3rem; }
+      .answers { grid-template-columns: 1fr; }
+      .answer-btn { font-size: 1.1rem; padding: 12px; }
+      #restartBtn { width: 100%; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ==================
+       HEADER
+  ================== -->
+  <header>
+    <h1>MathLab - Énigmes Logiques</h1>
+    <nav class="navbar">
+      <a href="/index/index.html"><i class="bi bi-house"></i> Accueil</a>
+      <a href="/Mini_Jeux/Mini_Jeux.html"><i class="bi bi-controller"></i> Mini_Jeux</a>
+      <a href="/Contact/contact.html"><i class="bi bi-envelope"></i> Contact</a>
+    </nav>
+  </header>
+
+  <!-- ==================
+       CONTENU PRINCIPAL
+  ================== -->
+  <main>
+    <h1>🧠 Énigmes Logiques</h1>
+    <p class="description">Résous un maximum d’énigmes en 60 secondes ⏱️ !</p>
+
+    <div class="game-container">
+      <div id="timer">⏱️ Temps : 60s</div>
+      <div id="question">Chargement de l’énigme...</div>
+
+      <div class="answers" id="answers"></div>
+
+      <div id="score">✅ Score : 0</div>
+      <div id="result"></div>
+      <button id="restartBtn" onclick="startGame()">🔄 Rejouer</button>
+    </div>
+  </main>
+
+  <!-- ==================
+       FOOTER
+  ================== -->
+  <footer>
+    © 2025 MathLab — Apprendre les maths en jouant 🎮
+  </footer>
+
+  <!-- ==================
+       SCRIPT DU JEU
+  ================== -->
+  <script>
+    const enigmes = [
+      {
+        question: "Si 3 chats attrapent 3 souris en 3 minutes, combien de chats attrapent 100 souris en 100 minutes ?",
+        answers: ["3", "100", "30", "1"],
+        correct: 0
+      },
+      {
+        question: "Combien de côtés ont 3 triangles et 1 carré ensemble ?",
+        answers: ["12", "10", "14", "8"],
+        correct: 1
+      },
+      {
+        question: "Quel nombre complète la suite : 2, 4, 8, 16, ...",
+        answers: ["18", "24", "32", "12"],
+        correct: 2
+      },
+      {
+        question: "Le père a deux fois l’âge de son fils. Dans 20 ans, il aura 20 ans de plus. Quel âge a le fils ?",
+        answers: ["20", "10", "40", "15"],
+        correct: 1
+      },
+      {
+        question: "Si un train met 1h pour faire 100km, combien de temps pour 300km ?",
+        answers: ["1h", "3h", "2h", "4h"],
+        correct: 1
+      }
+    ];
+
+    let score = 0;
+    let timeLeft = 60;
+    let timerInterval;
+    let currentQuestion;
+
+    const timerEl = document.getElementById('timer');
+    const questionEl = document.getElementById('question');
+    const answersEl = document.getElementById('answers');
+    const scoreEl = document.getElementById('score');
+    const resultEl = document.getElementById('result');
+    const restartBtn = document.getElementById('restartBtn');
+
+    function startGame() {
+      score = 0;
+      timeLeft = 60;
+      scoreEl.textContent = `✅ Score : ${score}`;
+      resultEl.style.display = 'none';
+      restartBtn.style.display = 'none';
+      answersEl.innerHTML = '';
+      document.querySelectorAll('.answer-btn').forEach(btn => btn.disabled = false);
+      nextQuestion();
+
+      timerInterval = setInterval(() => {
+        timeLeft--;
+        timerEl.textContent = `⏱️ Temps : ${timeLeft}s`;
+        if (timeLeft <= 0) endGame();
+      }, 1000);
+    }
+
+    function nextQuestion() {
+      currentQuestion = enigmes[Math.floor(Math.random() * enigmes.length)];
+      questionEl.textContent = currentQuestion.question;
+
+      answersEl.innerHTML = '';
+      currentQuestion.answers.forEach((ans, index) => {
+        const btn = document.createElement('button');
+        btn.classList.add('answer-btn');
+        btn.textContent = ans;
+        btn.onclick = () => checkAnswer(index);
+        answersEl.appendChild(btn);
+      });
+    }
+
+    function checkAnswer(index) {
+      if (index === currentQuestion.correct) {
+        score++;
+        scoreEl.textContent = `✅ Score : ${score}`;
+      }
+      nextQuestion();
+    }
+
+    function endGame() {
+      clearInterval(timerInterval);
+      questionEl.textContent = "⏱️ Temps écoulé !";
+      answersEl.innerHTML = "";
+      resultEl.style.display = 'block';
+      resultEl.textContent = `Ton score final est de ${score} points 🎉`;
+      restartBtn.style.display = 'inline-block';
+    }
+
+    window.onload = startGame;
+  </script>
+  <script>
+  if (window.MathLabScores && window.MathLabScores.save) {
+    window.MathLabScores.save('enigmes', resultat);
+  }
+  </script>
+</body>
+</html>

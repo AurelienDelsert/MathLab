@@ -1,0 +1,480 @@
+/* ==================
+   STRUCTURE GLOBALE
+================== */
+html, body {
+  font-family: 'Orbitron', Arial, sans-serif; /* police futuriste */
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  background: radial-gradient(circle at top, #050510, #000);
+  display: flex;
+  flex-direction: column;
+  color: #00ffc6;
+}
+
+/* ==================
+   HEADER
+================== */
+
+header {
+  width: 100%;
+  background: linear-gradient(135deg, #000, #021b3a, #00bfa6);
+  text-align: center;
+  padding: 25px 0;
+  position: relative;
+  box-shadow: 0 0 20px rgba(0, 255, 198, 0.5);
+  z-index: 10;
+  border-bottom: 2px solid rgba(0, 255, 198, 0.3);
+}
+
+header h1 {
+  margin: 0;
+  font-size: 3rem;
+  color: #00ffc6;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  text-shadow: 0 0 15px rgba(0, 255, 198, 0.8), 0 0 30px rgba(0, 191, 166, 0.5);
+}
+
+/* ==================
+   NAVBAR
+================== */
+
+.navbar {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  margin-top: 20px;
+  flex-wrap: wrap;
+}
+
+.navbar a {
+  position: relative;
+  display: inline-block;
+  padding: 12px 28px;
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #00ffc6;
+  text-decoration: none;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  border: 2px solid #00bfa6;
+  border-radius: 50px;
+  background: rgba(0, 255, 198, 0.05);
+  backdrop-filter: blur(5px);
+  box-shadow: 0 0 15px rgba(0, 255, 198, 0.3);
+  transition: all 0.3s ease;
+}
+
+.navbar a:hover {
+  background: linear-gradient(135deg, #00ffc6, #00bfa6);
+  color: #121212;
+  box-shadow: 0 0 25px #00ffc6, 0 0 50px #00bfa6;
+  transform: scale(1.05);
+}
+
+.navbar a:active {
+  transform: scale(0.97);
+}
+
+/* Effet lueur animée sous les liens */
+.navbar a::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 50%;
+  width: 0;
+  height: 2px;
+  background: #00ffc6;
+  transition: all 0.3s ease;
+  transform: translateX(-50%);
+  box-shadow: 0 0 10px #00ffc6;
+}
+
+.navbar a:hover::after {
+  width: 60%;
+}
+
+/* ==================
+   CONTENU
+================== */
+
+main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 50px 20px;
+  text-align: center;
+  color: #E0E0E0;
+}
+
+main h2 {
+  font-size: 2rem;
+  color: #00ffc6;
+  text-shadow: 0 0 15px rgba(0, 255, 198, 0.7);
+  margin-bottom: 20px;
+}
+
+main p {
+  max-width: 800px;
+  font-size: 1.2rem;
+  line-height: 1.6;
+  color: #b0f5e0;
+}
+
+/* ==================
+   FOOTER
+================== */
+
+footer {
+  width: 100%;
+  background: linear-gradient(135deg, #000, #021b3a, #00bfa6);
+  color: #00ffc6;
+  text-align: center;
+  padding: 15px;
+  font-size: 1rem;
+  letter-spacing: 1px;
+  box-shadow: 0 -5px 20px rgba(0, 255, 198, 0.3);
+  border-top: 2px solid rgba(0, 255, 198, 0.3);
+}
+
+/* ==================
+   RESPONSIVE
+================== */
+
+@media (max-width: 768px) {
+  header h1 {
+    font-size: 2.2rem;
+  }
+
+  .navbar {
+    gap: 20px;
+  }
+
+  .navbar a {
+    padding: 10px 20px;
+    font-size: 1rem;
+  }
+}
+
+/* ===== NAVBAR - VERSION FORCÉE ===== */
+.navbar {
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  gap: 40px !important; /* espace égal entre chaque bouton */
+  padding: 0;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.navbar a {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  text-decoration: none;
+  color: #00ffc6;
+  font-size: 1.1rem;
+  font-weight: bold;
+  background: rgba(0, 255, 198, 0.08);
+  padding: 12px 30px;
+  border-radius: 50px;
+  transition: all 0.3s ease;
+  margin: 0 !important;
+}
+
+.navbar a:hover {
+  background: linear-gradient(135deg, #00ffc6, #00bfa6);
+  color: #121212;
+  box-shadow: 0 0 20px #00ffc6;
+  transform: scale(1.05);
+}
+
+.navbar i {
+  margin-right: 8px;
+  font-size: 1.2rem;
+  line-height: 1;
+}
+
+
+/* ===== DROPDOWN MENU ===== */
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropbtn {
+  background: rgba(0, 255, 198, 0.08);
+  color: #00ffc6;
+  padding: 12px 28px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  border: none;
+  cursor: pointer;
+  border-radius: 50px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.3s ease;
+}
+
+.dropbtn:hover {
+  background: linear-gradient(135deg, #00ffc6, #00bfa6);
+  color: #121212;
+  box-shadow: 0 0 20px #00ffc6;
+  transform: scale(1.05);
+}
+
+/* Contenu du menu */
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background: #0d0d0d;
+  min-width: 230px;
+  box-shadow: 0 0 20px rgba(0, 255, 198, 0.4);
+  border-radius: 12px;
+  overflow: hidden;
+  z-index: 1000;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+/* Liens dans le menu */
+.dropdown-content a {
+  display: block;
+  padding: 12px 20px;
+  text-decoration: none;
+  color: #00ffc6;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+.dropdown-content a:hover {
+  background: linear-gradient(135deg, #00ffc6, #00bfa6);
+  color: #121212;
+  padding-left: 25px;
+}
+
+/* Afficher au survol */
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+/* Ajustement pour mobile */
+@media (max-width: 768px) {
+  .dropdown-content {
+    position: static;
+    transform: none;
+    box-shadow: none;
+  }
+}
+
+/* ===== NAVBAR ===== */
+.navbar {
+  background: linear-gradient(135deg, #000000, #023b74, #ff0040);
+  padding: 15px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  position: relative;
+}
+
+.nav-brand {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.nav-brand h1 {
+  color: #00ffc6;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 1.8rem;
+  margin: 0;
+}
+
+.burger {
+  background: none;
+  border: none;
+  color: #00ffc6;
+  font-size: 2rem;
+  cursor: pointer;
+  display: none;
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 40px;
+  align-items: center;
+}
+
+.nav-links li {
+  position: relative;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: #00ffc6;
+  font-weight: bold;
+  font-size: 1.1rem;
+  transition: all 0.3s ease;
+}
+
+.nav-links a:hover {
+  color: #ffffff;
+}
+
+/* ===== DROPDOWN ===== */
+.dropdown-content {
+  position: absolute;
+  background: #0d0d0d;
+  min-width: 250px;
+  box-shadow: 0 0 20px rgba(0, 255, 198, 0.4);
+  border-radius: 12px;
+  display: none;
+  top: 100%;
+  left: 0;
+  z-index: 10;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+.dropdown-section {
+  padding: 12px 20px;
+}
+
+.dropdown-section h4 {
+  margin-bottom: 8px;
+  color: #00ffc6;
+  font-size: 1rem;
+}
+
+.dropdown-section a {
+  display: block;
+  padding: 6px 0;
+  color: #b0f5e0;
+}
+
+.dropdown-section a:hover {
+  color: #121212;
+  background: linear-gradient(135deg, #00ffc6, #00bfa6);
+  padding-left: 10px;
+  border-radius: 6px;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 900px) {
+  .burger {
+    display: block;
+  }
+
+  .nav-links {
+    display: none;
+    width: 100%;
+    flex-direction: column;
+    background: #0d0d0d;
+    border-top: 2px solid #00ffc6;
+    padding: 20px;
+    gap: 20px;
+    position: absolute;
+    top: 70px;
+    left: 0;
+  }
+
+  .nav-links.show {
+    display: flex;
+  }
+
+  .nav-links li {
+    width: 100%;
+    text-align: center;
+  }
+
+  .dropdown-content {
+    position: static;
+    display: block;
+    background: none;
+    box-shadow: none;
+    padding: 0;
+  }
+
+  .dropdown-section {
+    border-bottom: 1px solid rgba(0, 255, 198, 0.2);
+  }
+
+  .dropdown-section h4 {
+    text-align: center;
+  }
+}
+
+/* =========================
+   📱 RESPONSIVE - STYLE.CSS
+   ========================= */
+@media (max-width: 900px) {
+
+  /* 📍 Navbar */
+  .navbar {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 15px;
+  }
+
+  .nav-brand h1 {
+    font-size: 1.6rem;
+    text-align: center;
+    width: 100%;
+  }
+
+  .burger {
+    display: block;
+    margin-left: auto;
+  }
+
+  .nav-links {
+    width: 100%;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .nav-links a {
+    font-size: 1.2rem;
+    padding: 12px;
+  }
+
+  /* 📍 Dropdown */
+  .dropdown-content {
+    position: static;
+    background: transparent;
+    box-shadow: none;
+    padding: 10px;
+  }
+
+  .dropdown-section h4 {
+    font-size: 1.2rem;
+    text-align: center;
+  }
+
+  .dropdown-section a {
+    text-align: center;
+    font-size: 1.1rem;
+    padding: 8px 0;
+  }
+
+  /* 📍 Footer */
+  footer {
+    font-size: 0.95rem;
+    padding: 20px 10px;
+    text-align: center;
+  }
+}
+
+
+
+

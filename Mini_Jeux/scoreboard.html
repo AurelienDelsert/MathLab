@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+  <title>Classements – MathLab</title>
+
+  <!-- Fonts & Libs -->
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet"/>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet"/>
+
+  <!-- Style global du site -->
+  <link rel="stylesheet" href="/style.css"/>
+
+  <style>
+    /* =========================
+       THEME LOCAL SCOREBOARD
+       ========================= */
+    :root{
+      --neo: #00ffc6;
+      --neo-soft:#00bfa6;
+      --bg-1:#000000;
+      --bg-2:#0b1330;
+      --ink:#ffffff;
+      --ink-dim:#b0f5e0;
+      --warn:#ff0040;
+      --card: rgba(0,255,198,.05);
+      --card-border: rgba(0,255,198,.4);
+      --shadow: 0 0 30px rgba(0,255,198,.25);
+    }
+
+    body{
+      background: linear-gradient(135deg, var(--bg-1), #011b3f, #0d0d0d);
+      color: var(--ink);
+      font-family: 'Orbitron', system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+      margin:0;
+    }
+
+    main{
+      padding: 48px 20px 80px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .page-title{
+      font-size: clamp(1.8rem, 2.3vw + 1rem, 3rem);
+      color: var(--neo);
+      text-align: center;
+      text-shadow: 0 0 15px var(--neo);
+      margin: 10px 0 20px;
+    }
+
+    .page-desc{
+      text-align:center;
+      color: var(--ink-dim);
+      max-width: 820px;
+      margin: 0 auto 30px;
+      line-height: 1.6;
+    }
+
+    /* ===== Toolbar actions ===== */
+    .toolbar{
+      display:flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px;
+      margin: 24px 0 36px;
+    }
+
+    .btn-neo{
+      display:inline-flex; align-items:center; gap:10px;
+      padding: 12px 18px;
+      border: none;
+      border-radius: 12px;
+      background: linear-gradient(135deg, var(--neo), var(--neo-soft));
+      color:#121212;
+      font-weight:700;
+      cursor:pointer;
+      box-shadow: 0 0 15px var(--neo);
+      transition: transform .2s ease, box-shadow .25s ease, filter .25s ease;
+      text-decoration:none;
+    }
+    .btn-neo:hover{ transform: translateY(-2px) scale(1.02); box-shadow: 0 0 24px var(--neo);}
+    .btn-ghost{
+      display:inline-flex; align-items:center; gap:10px;
+      padding: 12px 18px;
+      border-radius:12px;
+      border:2px solid var(--neo);
+      color: var(--neo);
+      background: transparent;
+      font-weight:700; cursor:pointer;
+      transition: background .25s ease, color .25s ease, transform .2s ease;
+      text-decoration:none;
+    }
+    .btn-ghost:hover{ background: var(--neo); color:#121212; transform: translateY(-2px); }
+
+    input[type="file"]{ display:none; }
+
+    /* ===== Cards ===== */
+    .card{
+      background: var(--card);
+      border:2px solid var(--card-border);
+      border-radius: 20px;
+      box-shadow: var(--shadow);
+    }
+
+    /* ===== Global panel ===== */
+    .global-wrap{
+      display:grid;
+      grid-template-columns: 1.1fr .9fr;
+      gap: 22px;
+      margin-bottom: 28px;
+    }
+    @media (max-width: 900px){
+      .global-wrap{ grid-template-columns: 1fr; }
+    }
+
+    .global-card{
+      padding: 24px;
+    }
+    .global-head{
+      display:flex; align-items:center; gap:12px; margin-bottom: 14px;
+      font-size: 1.15rem;
+      color: var(--ink-dim);
+    }
+    .global-score{
+      display:flex; align-items:center; justify-content: center; gap: 16px;
+      font-size: clamp(2rem, 3vw + .6rem, 3rem);
+      color: var(--neo);
+      text-shadow: 0 0 12px var(--neo);
+      margin: 10px 0 8px;
+    }
+    .global-meta{
+      display:flex; gap: 18px; justify-content:center; flex-wrap: wrap;
+      color: var(--ink-dim); font-size: .95rem;
+    }
+
+    .legend{
+      padding: 18px 20px;
+      display:grid; gap:8px;
+      color: var(--ink-dim);
+    }
+    .legend .row{ display:flex; align-items:center; gap:10px; }
+
+    /* ===== Per-game grid ===== */
+    .grid{
+      display:grid;
+      grid-template-columns: repeat(3, minmax(260px,1fr));
+      gap: 22px;
+    }
+    @media (max-width: 1100px){
+      .grid{ grid-template-columns: repeat(2, minmax(240px,1fr)); }
+    }
+    @media (max-width: 900px){
+      .grid{ grid-template-columns: 1fr; }
+    }
+
+    .game-card{
+      padding: 20px;
+      display:flex; flex-direction:column; gap:12px;
+    }
+    .game-top{
+      display:flex; align-items:center; justify-content: space-between; gap:14px;
+    }
+    .game-title{
+      font-size: 1.1rem;
+      color: var(--neo);
+      text-shadow: 0 0 10px var(--neo);
+    }
+    .game-link{
+      text-decoration:none;
+      color: var(--ink-dim);
+      font-size:.95rem;
+      border:1px solid rgba(0,255,198,.35);
+      padding: 6px 10px; border-radius: 999px;
+      transition: all .2s ease;
+    }
+    .game-link:hover{ color:#121212; background: linear-gradient(135deg, var(--neo), var(--neo-soft)); }
+
+    .kv{
+      display:flex; flex-wrap:wrap; gap:12px;
+      color: var(--ink-dim); font-size: .95rem;
+    }
+    .kv .val{ color:#fff; font-weight:700; }
+
+    .bar{
+      height: 10px; border-radius: 999px; overflow:hidden;
+      background: rgba(255,255,255,.08);
+      border:1px solid rgba(255,255,255,.12);
+    }
+    .bar > span{
+      display:block; height: 100%;
+      background: linear-gradient(90deg, var(--neo), var(--neo-soft));
+      box-shadow: 0 0 18px var(--neo);
+      width: 0%;
+      transition: width .6s ease;
+    }
+
+    .game-actions{
+      display:flex; gap:10px; flex-wrap: wrap; margin-top: 6px;
+    }
+    .btn-mini{
+      padding:8px 12px; border:1px solid var(--neo);
+      border-radius:10px; background: transparent; color: var(--neo);
+      font-weight:700; cursor:pointer;
+      transition: all .2s ease;
+    }
+    .btn-mini:hover{ background: var(--neo); color:#121212; }
+
+    /* ===== Toast ===== */
+    .toast{
+      position: fixed; left: 50%; transform: translateX(-50%);
+      bottom: 24px; z-index: 9999;
+      background: #0d0d0d; color: #fff;
+      border: 2px solid var(--neo);
+      box-shadow: 0 0 18px var(--neo);
+      padding: 12px 18px; border-radius: 12px;
+      display:none;
+    }
+    .toast.show{ display:block; animation: fadeInUp .25s ease, fadeOut .35s ease 2.2s forwards; }
+    @keyframes fadeInUp{ from{ opacity:0; transform: translate(-50%, 10px);} to{ opacity:1; transform: translate(-50%, 0);} }
+    @keyframes fadeOut{ to{ opacity:0; transform: translate(-50%, 6px);} }
+
+    /* Small helper text */
+    .help{
+      color: var(--ink-dim);
+      font-size:.92rem;
+      text-align:center;
+      margin-top: 8px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ==================
+       HEADER + NAVBAR
+       ================== -->
+  <header>
+    <h1 style="margin:0; padding:16px 0; color:#00ffc6; text-align:center; text-shadow:0 0 15px #00ffc6;">
+      MathLab – Classements
+    </h1>
+
+    <!-- Burger navbar (cohérente avec ton site) -->
+    <nav class="navbar">
+      <div class="nav-brand">
+        <h1>MathLab</h1>
+        <button class="burger" id="burger"><i class="bi bi-list"></i></button>
+      </div>
+
+      <ul class="nav-links" id="nav-links">
+        <li><a href="/index/index.html"><i class="bi bi-house"></i> Accueil</a></li>
+
+        <li class="dropdown">
+          <a href="/Mini_Jeux/Mini_Jeux.html" class="dropbtn"><i class="bi bi-controller"></i> Mini_Jeux ▾</a>
+          <div class="dropdown-content">
+            <div class="dropdown-section">
+              <h4>🧮 Opérations</h4>
+              <a href="/Mini_Jeux/Jeux/additions.html">➕ Additions rapides</a>
+              <a href="/Mini_Jeux/Jeux/soustractions.html">➖ Soustractions express</a>
+              <a href="/Mini_Jeux/Jeux/multiplications.html">✖️ Multiplications</a>
+              <a href="/Mini_Jeux/Jeux/divisions.html">➗ Divisions</a>
+            </div>
+            <div class="dropdown-section">
+              <h4>🧠 Logique & Réflexion</h4>
+              <a href="/Mini_Jeux/Jeux/enigmes.html">🧩 Énigmes logiques</a>
+              <a href="/Mini_Jeux/Jeux/chrono.html">⏱️ Chrono mental</a>
+              <a href="/Mini_Jeux/Jeux/defi.html">⚡ Défi du jour</a>
+            </div>
+            <div class="dropdown-section">
+              <h4>📈 Niveau Avancé</h4>
+              <a href="/Mini_Jeux/Jeux/fonctions.html">📊 Fonctions & Graphiques</a>
+              <a href="/Mini_Jeux/Jeux/probabilites.html">🎲 Probabilités</a>
+              <a href="/Mini_Jeux/Jeux/geometrie.html">📐 Géométrie</a>
+            </div>
+          </div>
+        </li>
+
+        <li><a href="/Contact/contact.html"><i class="bi bi-envelope"></i> Contact</a></li>
+        <li><a class="active" href="/Mini_Jeux/scoreboard.html"><i class="bi bi-trophy"></i> Classements</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- ==================
+       CONTENU
+       ================== -->
+  <main>
+    <h2 class="page-title">🏆 Classements MathLab</h2>
+    <p class="page-desc">
+      Tes scores sont enregistrés <strong>localement</strong> sur cet appareil.<br/>
+      Utilise <strong>Exporter</strong> pour sauvegarder un fichier et <strong>Importer</strong> pour restaurer après un nettoyage.
+    </p>
+
+    <!-- Actions -->
+    <div class="toolbar">
+      <button class="btn-neo" id="btnExport"><i class="bi bi-download"></i> Exporter mes scores</button>
+      <label class="btn-ghost" for="fileImport"><i class="bi bi-upload"></i> Importer un fichier</label>
+      <input id="fileImport" type="file" accept="application/json" />
+      <button class="btn-ghost" id="btnReset"><i class="bi bi-trash"></i> Réinitialiser tout</button>
+    </div>
+
+    <!-- GLOBAL -->
+    <section class="global-wrap">
+      <div class="card global-card">
+        <div class="global-head">
+          <i class="bi bi-graph-up-arrow"></i>
+          <span>Classement global (somme des meilleurs scores par jeu)</span>
+        </div>
+        <div class="global-score">
+          <i class="bi bi-trophy"></i>
+          <span id="globalTotal">0</span>
+        </div>
+        <div class="global-meta">
+          <div><i class="bi bi-joystick"></i> Jeux suivis : <strong id="gamesCount">0</strong></div>
+          <div><i class="bi bi-check2-circle"></i> Meilleurs scores cumulés : <strong id="bestsSum">0</strong></div>
+          <div><i class="bi bi-clock-history"></i> Tentatives totales : <strong id="attemptsTotal">0</strong></div>
+        </div>
+      </div>
+
+      <aside class="card legend">
+        <div class="row"><i class="bi bi-lightbulb"></i> <span>Le score global additionne les <strong>records</strong> de chaque jeu.</span></div>
+        <div class="row"><i class="bi bi-save"></i> <span>Tout est stocké en local via <code>localStorage</code>.</span></div>
+        <div class="row"><i class="bi bi-shield-lock"></i> <span>Aucun envoi en ligne. 100% privé.</span></div>
+        <div class="row"><i class="bi bi-file-earmark-arrow-down"></i> <span>Utilise <strong>Exporter</strong> pour une sauvegarde hors navigateur.</span></div>
+      </aside>
+    </section>
+
+    <!-- PER-GAME GRID -->
+    <section class="grid" id="gamesGrid"></section>
+
+    <p class="help">
+      💡 Besoin d’intégrer l’enregistrement automatique depuis un jeu ?  
+      Appelle tout simplement : <code>window.MathLabScores.save('multiplications', 12)</code>
+    </p>
+  </main>
+
+  <div class="toast" id="toast">Opération réussie.</div>
+
+  <!-- ==================
+       SCRIPTS
+       ================== -->
+  <script>
+    // ===== Burger toggle (cohérent avec tes autres pages) =====
+    const burger = document.getElementById('burger');
+    const navLinks = document.getElementById('nav-links');
+    if (burger && navLinks){
+      burger.addEventListener('click', () => navLinks.classList.toggle('show'));
+    }
+
+    // ======== SCOREBOARD LOGIC ========
+    (function(){
+      const STORAGE_KEY = 'mathlab_scores_v1';
+
+      // Canonical game list: key -> meta
+      const GAMES = [
+        { key: 'additions',       title: '➕ Additions rapides',       href: '/Mini_Jeux/Jeux/additions.html' },
+        { key: 'soustractions',   title: '➖ Soustractions express',    href: '/Mini_Jeux/Jeux/soustractions.html' },
+        { key: 'multiplications', title: '✖️ Multiplications',         href: '/Mini_Jeux/Jeux/multiplications.html' },
+        { key: 'divisions',       title: '➗ Divisions',                href: '/Mini_Jeux/Jeux/divisions.html' },
+        { key: 'enigmes',         title: '🧩 Énigmes logiques',        href: '/Mini_Jeux/Jeux/enigmes.html' },
+        { key: 'fonctions',       title: '📊 Fonctions & Graphiques',  href: '/Mini_Jeux/Jeux/fonctions.html' },
+        { key: 'probabilites',    title: '🎲 Probabilités',            href: '/Mini_Jeux/Jeux/probabilites.html' },
+        { key: 'geometrie',       title: '📐 Géométrie',               href: '/Mini_Jeux/Jeux/geometrie.html' },
+        { key: 'chrono',          title: '⏱️ Calcul mental chrono',    href: '/Mini_Jeux/Jeux/chrono.html' },
+        { key: 'defi',            title: '⚡ Défi du jour',            href: '/Mini_Jeux/Jeux/defi.html' },
+      ];
+
+      // Default empty state
+      function emptyState(){
+        const games = {};
+        for(const g of GAMES){
+          games[g.key] = { best: 0, attempts: 0, last: null, history: [] };
+        }
+        return { games }; // global is computed
+      }
+
+      // Load / Save
+      function load(){
+        try{
+          const raw = localStorage.getItem(STORAGE_KEY);
+          if(!raw) return emptyState();
+          const parsed = JSON.parse(raw);
+          // ensure all games exist
+          const state = emptyState();
+          for(const k in state.games){
+            state.games[k] = { ...state.games[k], ...(parsed.games?.[k]||{}) };
+          }
+          return state;
+        }catch(e){
+          console.warn('Load error', e);
+          return emptyState();
+        }
+      }
+      function save(state){
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+      }
+
+      // Public API to save a score (callable from any page)
+      function saveScore(gameKey, score){
+        const s = load();
+        if(!s.games[gameKey]) s.games[gameKey] = { best: 0, attempts: 0, last: null, history: [] };
+        const g = s.games[gameKey];
+        g.attempts += 1;
+        g.last = new Date().toISOString();
+        g.history.push({ score: Number(score)||0, at: g.last });
+        if((Number(score)||0) > (g.best||0)) g.best = Number(score)||0;
+        // keep recent 100
+        if(g.history.length > 100) g.history = g.history.slice(-100);
+        save(s);
+        showToast('Score enregistré ✅');
+        render();
+      }
+
+      // Compute aggregates
+      function computeGlobal(state){
+        let sumBest = 0, attempts = 0;
+        for(const g of Object.values(state.games)){
+          sumBest += (g.best||0);
+          attempts += (g.attempts||0);
+        }
+        return { sumBest, attempts, gamesCount: Object.keys(state.games).length };
+      }
+
+      // Render UI
+      const gridEl = document.getElementById('gamesGrid');
+      const globalTotalEl = document.getElementById('globalTotal');
+      const bestsSumEl = document.getElementById('bestsSum');
+      const attemptsTotalEl = document.getElementById('attemptsTotal');
+      const gamesCountEl = document.getElementById('gamesCount');
+
+      function pct(best){
+        // relative progress bar – normalise on a heuristic cap (e.g., 50 points)
+        const CAP = 50; // tu peux l’ajuster
+        const p = Math.max(0, Math.min(100, Math.round((best / CAP) * 100)));
+        return p;
+      }
+
+      function fmtDate(iso){
+        if(!iso) return '—';
+        try{
+          const d = new Date(iso);
+          return d.toLocaleString();
+        }catch{ return '—'; }
+      }
+
+      function render(){
+        const state = load();
+        const ag = computeGlobal(state);
+        globalTotalEl.textContent = ag.sumBest;
+        bestsSumEl.textContent = ag.sumBest;
+        attemptsTotalEl.textContent = ag.attempts;
+        gamesCountEl.textContent = ag.gamesCount;
+
+        // Grid
+        gridEl.innerHTML = '';
+        for(const meta of GAMES){
+          const g = state.games[meta.key] || { best:0, attempts:0, last:null };
+          const p = pct(g.best);
+
+          const card = document.createElement('article');
+          card.className = 'card game-card';
+          card.innerHTML = `
+            <div class="game-top">
+              <div class="game-title">${meta.title}</div>
+              <a class="game-link" href="${meta.href}"><i class="bi bi-play"></i> Jouer</a>
+            </div>
+
+            <div class="kv">
+              <div>Record : <span class="val">${g.best||0}</span></div>
+              <div>Tentatives : <span class="val">${g.attempts||0}</span></div>
+              <div>Dernière : <span class="val">${fmtDate(g.last)}</span></div>
+            </div>
+
+            <div class="bar" title="Progression (cap 50)">
+              <span style="width:${p}%"></span>
+            </div>
+
+            <div class="game-actions">
+              <button class="btn-mini" data-action="add"   data-key="${meta.key}"><i class="bi bi-plus-circle"></i> Ajouter un score…</button>
+              <button class="btn-mini" data-action="reset" data-key="${meta.key}"><i class="bi bi-arrow-counterclockwise"></i> Réinitialiser</button>
+              <button class="btn-mini" data-action="view"  data-key="${meta.key}"><i class="bi bi-clock-history"></i> Historique</button>
+            </div>
+          `;
+          gridEl.appendChild(card);
+        }
+      }
+
+      // Delegated actions
+      gridEl.addEventListener('click', (e)=>{
+        const btn = e.target.closest('button.btn-mini');
+        if(!btn) return;
+        const key = btn.dataset.key;
+        const action = btn.dataset.action;
+        if(action === 'add'){
+          const val = prompt('Entrer un score (nombre entier) :', '10');
+          if(val === null) return;
+          const n = Number(val);
+          if(Number.isNaN(n)){ showToast('Score invalide.'); return; }
+          saveScore(key, n);
+        } else if(action === 'reset'){
+          if(!confirm('Réinitialiser ce jeu ?')) return;
+          const s = load();
+          s.games[key] = { best:0, attempts:0, last:null, history:[] };
+          save(s); render(); showToast('Jeu réinitialisé.');
+        } else if(action === 'view'){
+          const s = load();
+          const hist = (s.games[key]?.history||[]).slice(-20).reverse()
+            .map(h => `${new Date(h.at).toLocaleString()} — ${h.score}`)
+            .join('\n');
+          alert(hist || 'Aucun historique.');
+        }
+      });
+
+      // Export / Import / Reset all
+      document.getElementById('btnExport').addEventListener('click', ()=>{
+        const data = load();
+        const blob = new Blob([JSON.stringify(data, null, 2)], {type:'application/json'});
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `mathlab-scores-${new Date().toISOString().slice(0,10)}.json`;
+        a.click();
+        URL.revokeObjectURL(url);
+        showToast('Fichier exporté 📦');
+      });
+
+      document.getElementById('fileImport').addEventListener('change', (e)=>{
+        const file = e.target.files[0];
+        if(!file) return;
+        const reader = new FileReader();
+        reader.onload = () => {
+          try{
+            const parsed = JSON.parse(reader.result);
+            // minimal validation
+            if(!parsed || typeof parsed !== 'object' || !parsed.games) throw new Error('Format invalide');
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(parsed));
+            render();
+            showToast('Scores importés ✅');
+          }catch(err){
+            console.error(err);
+            showToast('Import invalide ❌');
+          } finally {
+            e.target.value = '';
+          }
+        };
+        reader.readAsText(file);
+      });
+
+      document.getElementById('btnReset').addEventListener('click', ()=>{
+        if(!confirm('Tout réinitialiser ? Cette action est irréversible.')) return;
+        localStorage.removeItem(STORAGE_KEY);
+        render();
+        showToast('Tous les scores ont été réinitialisés.');
+      });
+
+      // Small toast
+      const toastEl = document.getElementById('toast');
+      function showToast(msg){
+        toastEl.textContent = msg;
+        toastEl.classList.remove('show'); // restart animation
+        void toastEl.offsetWidth;
+        toastEl.classList.add('show');
+      }
+
+      // Expose public API for other pages
+      window.MathLabScores = {
+        save: saveScore,
+        get: load,
+      };
+
+      // First render
+      render();
+    })();
+  </script>
+</body>
+</html>

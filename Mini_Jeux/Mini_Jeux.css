@@ -1,0 +1,131 @@
+main {
+  padding: 60px 20px;
+  text-align: center;
+}
+
+.intro h2 {
+  font-size: 2.8rem;
+  margin-bottom: 10px;
+  text-shadow: 0 0 15px #00ffc6;
+}
+
+.intro p {
+  font-size: 1.2rem;
+  color: #b0f5e0;
+  max-width: 700px;
+  margin: 0 auto 50px auto;
+}
+
+.games-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 30px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.game-card {
+  background: rgba(0, 255, 198, 0.05);
+  border: 2px solid rgba(0, 255, 198, 0.4);
+  border-radius: 20px;
+  padding: 30px 20px;
+  box-shadow: 0 0 20px rgba(0, 255, 198, 0.2);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  backdrop-filter: blur(10px);
+}
+
+.game-card i {
+  font-size: 3rem;
+  color: #00ffc6;
+  margin-bottom: 15px;
+}
+
+.game-card h3 {
+  font-size: 1.5rem;
+  color: #00ffc6;
+  margin-bottom: 10px;
+}
+
+.game-card p {
+  font-size: 1rem;
+  color: #b0f5e0;
+  margin-bottom: 20px;
+}
+
+.game-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 0 30px rgba(0, 255, 198, 0.6);
+}
+
+.play-btn {
+  display: inline-block;
+  padding: 12px 30px;
+  background: linear-gradient(135deg, #00ffc6, #00bfa6);
+  color: #121212;
+  border-radius: 50px;
+  font-weight: bold;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.play-btn:hover {
+  background: linear-gradient(135deg, #00bfa6, #00ffc6);
+  box-shadow: 0 0 20px #00ffc6;
+  transform: scale(1.05);
+}
+
+/* =============================
+   📱 RESPONSIVE - MINI_JEUX.CSS
+   ============================= */
+@media (max-width: 900px) {
+
+  /* 🧩 Intro */
+  .intro h2 {
+    font-size: 2rem;
+  }
+
+  .intro p {
+    font-size: 1.1rem;
+    padding: 0 15px;
+  }
+
+  /* 🎮 Grille des jeux */
+  .games-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    padding: 0 15px;
+  }
+
+  @media (max-width: 600px) {
+    .games-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  /* 🕹️ Cartes */
+  .game-card {
+    padding: 25px 20px;
+    font-size: 1.1rem;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transform: scale(1);
+  }
+
+  .game-card:hover {
+    transform: translateY(-5px) scale(1.03);
+  }
+
+  .game-card i {
+    font-size: 2.5rem;
+  }
+
+  .game-card h3 {
+    font-size: 1.4rem;
+  }
+
+  .play-btn {
+    width: 100%;
+    padding: 14px 0;
+    font-size: 1.2rem;
+  }
+}
+

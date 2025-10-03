@@ -1,0 +1,71 @@
+/*==================
+        CONTENU
+  ==================*/
+ h2 {
+  text-align: center;
+  font-size: bold;
+ }
+
+ h3 {
+  text-align: left;
+ }
+
+ p {
+  text-align: justify;
+ }
+ 
+/*==================
+        RESPONSIVE
+  ==================*/
+  
+/* =========================
+   📱 RESPONSIVE - INDEX.CSS
+   ========================= */
+@media (max-width: 900px) {
+
+  /* 🏠 Hero */
+  .hero {
+    padding: 40px 20px;
+    text-align: center;
+  }
+
+  .hero h2 {
+    font-size: 2rem;
+    line-height: 2.5rem;
+  }
+
+  .hero p {
+    font-size: 1.1rem;
+    margin-top: 15px;
+  }
+
+  .cta-button {
+    padding: 14px 30px;
+    font-size: 1.2rem;
+    margin-top: 20px;
+    width: 100%;
+    max-width: 300px;
+  }
+
+  /* 📊 Features */
+  .features h3 {
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+  }
+
+  .features-grid {
+    grid-template-columns: 1fr;
+    gap: 25px;
+    padding: 0 20px;
+  }
+
+  .feature-card {
+    padding: 25px 20px;
+    font-size: 1.1rem;
+  }
+
+  .feature-card i {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+  }
+}
