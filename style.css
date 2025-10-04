@@ -1,8 +1,8 @@
-/* ==================
-   STRUCTURE GLOBALE
-================== */
+/* ============================
+   🌐 STRUCTURE GLOBALE
+============================ */
 html, body {
-  font-family: 'Orbitron', Arial, sans-serif; /* police futuriste */
+  font-family: 'Orbitron', Arial, sans-serif;
   height: 100%;
   margin: 0;
   padding: 0;
@@ -12,10 +12,9 @@ html, body {
   color: #00ffc6;
 }
 
-/* ==================
-   HEADER
-================== */
-
+/* ============================
+   🧭 HEADER
+============================ */
 header {
   width: 100%;
   background: linear-gradient(135deg, #000, #021b3a, #00bfa6);
@@ -36,304 +35,9 @@ header h1 {
   text-shadow: 0 0 15px rgba(0, 255, 198, 0.8), 0 0 30px rgba(0, 191, 166, 0.5);
 }
 
-/* ==================
-   NAVBAR
-================== */
-
-.navbar {
-  display: flex;
-  justify-content: center;
-  gap: 40px;
-  margin-top: 20px;
-  flex-wrap: wrap;
-}
-
-.navbar a {
-  position: relative;
-  display: inline-block;
-  padding: 12px 28px;
-  font-size: 1.2rem;
-  font-weight: 600;
-  color: #00ffc6;
-  text-decoration: none;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  border: 2px solid #00bfa6;
-  border-radius: 50px;
-  background: rgba(0, 255, 198, 0.05);
-  backdrop-filter: blur(5px);
-  box-shadow: 0 0 15px rgba(0, 255, 198, 0.3);
-  transition: all 0.3s ease;
-}
-
-.navbar a:hover {
-  background: linear-gradient(135deg, #00ffc6, #00bfa6);
-  color: #121212;
-  box-shadow: 0 0 25px #00ffc6, 0 0 50px #00bfa6;
-  transform: scale(1.05);
-}
-
-.navbar a:active {
-  transform: scale(0.97);
-}
-
-/* Effet lueur animée sous les liens */
-.navbar a::after {
-  content: '';
-  position: absolute;
-  bottom: -4px;
-  left: 50%;
-  width: 0;
-  height: 2px;
-  background: #00ffc6;
-  transition: all 0.3s ease;
-  transform: translateX(-50%);
-  box-shadow: 0 0 10px #00ffc6;
-}
-
-.navbar a:hover::after {
-  width: 60%;
-}
-
-/* ==================
-   CONTENU
-================== */
-
-main {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 50px 20px;
-  text-align: center;
-  color: #E0E0E0;
-}
-
-main h2 {
-  font-size: 2rem;
-  color: #00ffc6;
-  text-shadow: 0 0 15px rgba(0, 255, 198, 0.7);
-  margin-bottom: 20px;
-}
-
-main p {
-  max-width: 800px;
-  font-size: 1.2rem;
-  line-height: 1.6;
-  color: #b0f5e0;
-}
-
-/* ==================
-   FOOTER
-================== */
-
-footer {
-  width: 100%;
-  background: linear-gradient(135deg, #000, #021b3a, #00bfa6);
-  color: #00ffc6;
-  text-align: center;
-  padding: 15px;
-  font-size: 1rem;
-  letter-spacing: 1px;
-  box-shadow: 0 -5px 20px rgba(0, 255, 198, 0.3);
-  border-top: 2px solid rgba(0, 255, 198, 0.3);
-}
-
-/* ==================
-   RESPONSIVE
-================== */
-
-@media (max-width: 768px) {
-  header h1 {
-    font-size: 2.2rem;
-  }
-
-  .navbar {
-    gap: 20px;
-  }
-
-  .navbar a {
-    padding: 10px 20px;
-    font-size: 1rem;
-  }
-}
-
-/* ===== NAVBAR - VERSION FORCÉE ===== */
-.navbar {
-  display: flex !important;
-  justify-content: center !important;
-  align-items: center !important;
-  gap: 40px !important; /* espace égal entre chaque bouton */
-  padding: 0;
-  margin: 0 auto;
-  text-align: center;
-}
-
-.navbar a {
-  display: inline-flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  text-decoration: none;
-  color: #00ffc6;
-  font-size: 1.1rem;
-  font-weight: bold;
-  background: rgba(0, 255, 198, 0.08);
-  padding: 12px 30px;
-  border-radius: 50px;
-  transition: all 0.3s ease;
-  margin: 0 !important;
-}
-
-.navbar a:hover {
-  background: linear-gradient(135deg, #00ffc6, #00bfa6);
-  color: #121212;
-  box-shadow: 0 0 20px #00ffc6;
-  transform: scale(1.05);
-}
-
-.navbar i {
-  margin-right: 8px;
-  font-size: 1.2rem;
-  line-height: 1;
-}
-
-
-/* =====================
-   🔽 MENU DÉROULANT
-===================== */
-
-.dropdown {
-  position: relative;
-  display: inline-block;
-}
-
-.dropbtn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: linear-gradient(120deg, #00ffc6, #00bfa6);
-  color: #0a0a0a;
-  font-weight: 700;
-  padding: 14px 28px;
-  border-radius: 40px;
-  text-decoration: none;
-  font-size: 1.1rem;
-  letter-spacing: 0.5px;
-  transition: all 0.3s ease;
-  cursor: pointer;
-}
-
-.dropbtn:hover {
-  background: linear-gradient(120deg, #00bfa6, #00ffc6);
-  box-shadow: 0 0 15px rgba(0, 255, 198, 0.6);
-  transform: scale(1.03);
-}
-
-/* =====================
-   🔽 CONTENU DU MENU
-===================== */
-
-.dropdown-content {
-  position: absolute;
-  top: 110%;
-  left: 50%;
-  transform: translateX(-50%) scaleY(0);
-  transform-origin: top;
-  min-width: 250px;
-  background: rgba(15, 15, 20, 0.95);
-  border: 1px solid rgba(0, 255, 198, 0.3);
-  border-radius: 16px;
-  box-shadow: 0 0 20px rgba(0, 255, 198, 0.2);
-  padding: 10px 0;
-  display: flex;
-  flex-direction: column;
-  opacity: 0;
-  visibility: hidden;
-  transition: all 0.35s ease;
-  backdrop-filter: blur(8px);
-  z-index: 1000;
-}
-
-/* ✨ Animation d'ouverture élégante */
-.dropdown:hover .dropdown-content {
-  transform: translateX(-50%) scaleY(1);
-  opacity: 1;
-  visibility: visible;
-}
-
-/* =====================
-   📁 CATÉGORIES
-===================== */
-
-.dropdown-section {
-  padding: 10px 20px;
-  border-bottom: 1px solid rgba(0, 255, 198, 0.1);
-}
-
-.dropdown-section:last-child {
-  border-bottom: none;
-}
-
-.dropdown-section h4 {
-  font-size: 1rem;
-  color: #00ffc6;
-  margin-bottom: 8px;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  text-shadow: 0 0 8px rgba(0, 255, 198, 0.5);
-}
-
-/* =====================
-   📎 LIENS MINI-JEUX
-===================== */
-
-.dropdown-content a {
-  display: block;
-  width: 100%;
-  text-align: left;
-  padding: 12px 18px;
-  color: #e0fdf9;
-  font-size: 1rem;
-  text-decoration: none;
-  transition: all 0.3s ease;
-  border-radius: 8px;
-  margin-bottom: 4px;
-  box-sizing: border-box;
-}
-
-/* ✅ Taille uniforme */
-.dropdown-content a i {
-  width: 25px;
-  text-align: center;
-  margin-right: 6px;
-  color: #00ffc6;
-}
-
-.dropdown-content a:hover {
-  background: rgba(0, 255, 198, 0.12);
-  color: #00ffc6;
-  padding-left: 24px;
-  box-shadow: 0 0 12px rgba(0, 255, 198, 0.2);
-  transform: translateX(4px);
-}
-
-/* 📱 Responsive */
-@media (max-width: 768px) {
-  .dropbtn {
-    width: 100%;
-    text-align: center;
-  }
-
-  .dropdown-content {
-    min-width: 90vw;
-    left: 50%;
-    transform: translateX(-50%) scaleY(0);
-  }
-}
-
-
-/* ===== NAVBAR ===== */
+/* ============================
+   📂 NAVBAR
+============================ */
 .navbar {
   background: linear-gradient(135deg, #000000, #023b74, #ff0040);
   padding: 15px 20px;
@@ -353,7 +57,6 @@ footer {
 
 .nav-brand h1 {
   color: #00ffc6;
-  font-family: 'Orbitron', sans-serif;
   font-size: 1.8rem;
   margin: 0;
 }
@@ -365,6 +68,11 @@ footer {
   font-size: 2rem;
   cursor: pointer;
   display: none;
+  transition: transform 0.3s ease;
+}
+
+.burger.open i {
+  transform: rotate(90deg);
 }
 
 .nav-links {
@@ -390,47 +98,163 @@ footer {
   color: #ffffff;
 }
 
-/* ===== DROPDOWN ===== */
-.dropdown-content {
-  position: absolute;
-  background: #0d0d0d;
-  min-width: 250px;
-  box-shadow: 0 0 20px rgba(0, 255, 198, 0.4);
-  border-radius: 12px;
-  display: none;
-  top: 100%;
-  left: 0;
-  z-index: 10;
+/* ============================
+   🔽 DROPDOWN MENU
+============================ */
+.dropdown {
+  position: relative;
+  display: inline-block;
 }
 
+/* ✅ Zone cliquable corrigée */
+.dropbtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 14px 28px;
+  background: linear-gradient(120deg, #00ffc6, #00bfa6);
+  color: #0a0a0a;
+  font-weight: 700;
+  border-radius: 40px;
+  text-decoration: none;
+  font-size: 1.1rem;
+  letter-spacing: 0.5px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  position: relative;
+  z-index: 2;
+}
+
+.dropbtn:hover {
+  background: linear-gradient(120deg, #00bfa6, #00ffc6);
+  box-shadow: 0 0 15px rgba(0, 255, 198, 0.6);
+  transform: scale(1.03);
+}
+
+/* ============================
+   📜 CONTENU DU SOUS-MENU
+============================ */
+.dropdown-content {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  min-width: 250px;
+  background: rgba(15, 15, 20, 0.95);
+  border: 1px solid rgba(0, 255, 198, 0.3);
+  border-radius: 16px;
+  box-shadow: 0 0 20px rgba(0, 255, 198, 0.2);
+  padding: 10px 0;
+  display: none;
+  flex-direction: column;
+  opacity: 0;
+  visibility: hidden;
+  transform: scaleY(0);
+  transform-origin: top;
+  transition: all 0.3s ease;
+  z-index: 1;
+}
+
+/* ✨ Animation au survol (PC) */
 .dropdown:hover .dropdown-content {
-  display: block;
+  display: flex;
+  opacity: 1;
+  visibility: visible;
+  transform: scaleY(1);
+}
+
+/* ✅ Affichage en mobile au clic */
+.dropdown-content.show {
+  display: flex !important;
+  opacity: 1;
+  visibility: visible;
+  transform: scaleY(1);
 }
 
 .dropdown-section {
-  padding: 12px 20px;
+  padding: 10px 20px;
+  border-bottom: 1px solid rgba(0, 255, 198, 0.1);
+}
+
+.dropdown-section:last-child {
+  border-bottom: none;
 }
 
 .dropdown-section h4 {
-  margin-bottom: 8px;
-  color: #00ffc6;
   font-size: 1rem;
+  color: #00ffc6;
+  margin-bottom: 8px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  text-shadow: 0 0 8px rgba(0, 255, 198, 0.5);
 }
 
-.dropdown-section a {
+.dropdown-content a {
   display: block;
-  padding: 6px 0;
+  width: 100%;
+  text-align: left;
+  padding: 12px 18px;
+  color: #e0fdf9;
+  font-size: 1rem;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  border-radius: 8px;
+}
+
+.dropdown-content a:hover {
+  background: rgba(0, 255, 198, 0.12);
+  color: #00ffc6;
+  padding-left: 24px;
+  box-shadow: 0 0 12px rgba(0, 255, 198, 0.2);
+  transform: translateX(4px);
+}
+
+/* ============================
+   📜 MAIN
+============================ */
+main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 50px 20px;
+  text-align: center;
+  color: #E0E0E0;
+}
+
+main h2 {
+  font-size: 2rem;
+  color: #00ffc6;
+  text-shadow: 0 0 15px rgba(0, 255, 198, 0.7);
+  margin-bottom: 20px;
+}
+
+main p {
+  max-width: 800px;
+  font-size: 1.2rem;
+  line-height: 1.6;
   color: #b0f5e0;
 }
 
-.dropdown-section a:hover {
-  color: #121212;
-  background: linear-gradient(135deg, #00ffc6, #00bfa6);
-  padding-left: 10px;
-  border-radius: 6px;
+/* ============================
+   📍 FOOTER
+============================ */
+footer {
+  width: 100%;
+  background: linear-gradient(135deg, #000, #021b3a, #00bfa6);
+  color: #00ffc6;
+  text-align: center;
+  padding: 15px;
+  font-size: 1rem;
+  letter-spacing: 1px;
+  box-shadow: 0 -5px 20px rgba(0, 255, 198, 0.3);
+  border-top: 2px solid rgba(0, 255, 198, 0.3);
 }
 
-/* ===== RESPONSIVE ===== */
+/* ============================
+   📱 RESPONSIVE
+============================ */
 @media (max-width: 900px) {
   .burger {
     display: block;
@@ -458,78 +282,26 @@ footer {
     text-align: center;
   }
 
-  .dropdown-content {
-    position: static;
-    display: block;
-    background: none;
-    box-shadow: none;
-    padding: 0;
-  }
-
-  .dropdown-section {
-    border-bottom: 1px solid rgba(0, 255, 198, 0.2);
-  }
-
-  .dropdown-section h4 {
-    text-align: center;
-  }
-}
-
-/* =========================
-   📱 RESPONSIVE - STYLE.CSS
-   ========================= */
-@media (max-width: 900px) {
-
-  /* 📍 Navbar */
-  .navbar {
-    flex-direction: column;
-    align-items: flex-start;
-    padding: 15px;
-  }
-
-  .nav-brand h1 {
-    font-size: 1.6rem;
-    text-align: center;
-    width: 100%;
-  }
-
-  .burger {
-    display: block;
-    margin-left: auto;
-  }
-
-  .nav-links {
-    width: 100%;
-    flex-direction: column;
-    align-items: center;
-    gap: 20px;
-  }
-
-  .nav-links a {
-    font-size: 1.2rem;
-    padding: 12px;
-  }
-
-  /* 📍 Dropdown */
+  /* ✅ Sous-menu mobile */
   .dropdown-content {
     position: static;
     background: transparent;
     box-shadow: none;
-    padding: 10px;
+    padding: 0;
+    transform: none;
   }
 
-  .dropdown-section h4 {
-    font-size: 1.2rem;
+  .dropdown-content.show {
+    display: block !important;
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .dropdown-section h4,
+  .dropdown-content a {
     text-align: center;
   }
 
-  .dropdown-section a {
-    text-align: center;
-    font-size: 1.1rem;
-    padding: 8px 0;
-  }
-
-  /* 📍 Footer */
   footer {
     font-size: 0.95rem;
     padding: 20px 10px;
@@ -537,13 +309,70 @@ footer {
   }
 }
 
-/* ✨ Animation burger quand ouvert */
-.burger.open i {
-  transform: rotate(90deg);
-  transition: transform 0.3s ease;
+/* ✅ Correctif bouton Contact invisible sur mobile */
+@media (max-width: 900px) {
+
+  .nav-links {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    background: #0d0d0d;
+    border-top: 2px solid #00ffc6;
+    padding: 20px 0;
+    gap: 20px;
+    position: absolute;
+    top: 70px;
+    left: 0;
+    z-index: 999; /* ✅ garantit que tout reste au-dessus */
+  }
+
+  .nav-links.show {
+    display: flex;
+  }
+
+  /* ✅ Chaque élément bien visible */
+  .nav-links li {
+    width: 100%;
+    text-align: center;
+    position: relative;
+    z-index: 1000;
+  }
+
+  /* ✅ Sous-menu ne prend plus toute la place */
+  .dropdown-content {
+    position: relative;
+    background: none;
+    padding: 0;
+    box-shadow: none;
+    width: auto;
+  }
+
+  /* ✅ Empêche le dropdown d’écraser Contact */
+  .dropdown-content.show {
+    display: block !important;
+    opacity: 1;
+    visibility: visible;
+    position: relative;
+    z-index: 998;
+  }
+
+  /* ✅ Bouton contact toujours visible */
+  .nav-links a {
+    display: inline-block;
+    width: 100%;
+    padding: 12px;
+    text-align: center;
+    color: #00ffc6;
+    font-size: 1.2rem;
+    text-decoration: none;
+    background: rgba(0, 255, 198, 0.05);
+    border-radius: 10px;
+    transition: all 0.3s ease;
+  }
+
+  .nav-links a:hover {
+    background: rgba(0, 255, 198, 0.15);
+    color: #fff;
+  }
 }
-
-
-
-
-
