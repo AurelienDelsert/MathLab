@@ -42,3 +42,30 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 });
+
+document.addEventListener("DOMContentLoaded", () => {
+  const burger = document.getElementById("burger");
+  const navLinks = document.getElementById("nav-links");
+  const dropdown = document.querySelector(".dropdown");
+  const dropdownContent = document.querySelector(".dropdown-content");
+  const dropBtn = document.querySelector(".dropbtn");
+
+  // ✅ Ouvrir/fermer le menu burger
+  burger.addEventListener("click", () => {
+    navLinks.classList.toggle("show");
+    burger.classList.toggle("open");
+  });
+
+  // ✅ Gérer l'ouverture du sous-menu sur iPhone
+  dropBtn.addEventListener("click", (e) => {
+    e.preventDefault();
+    dropdownContent.classList.toggle("show");
+  });
+
+  // ✅ Fermer le sous-menu quand on clique ailleurs
+  document.addEventListener("click", (e) => {
+    if (!dropdown.contains(e.target)) {
+      dropdownContent.classList.remove("show");
+    }
+  });
+});
