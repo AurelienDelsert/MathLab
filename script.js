@@ -1,71 +1,65 @@
-// ✅ script.js
+// ✅ script.js - Navigation responsive & sous-menu mobile
 
 document.addEventListener("DOMContentLoaded", () => {
   const burger = document.getElementById("burger");
   const navLinks = document.getElementById("nav-links");
+  const dropdowns = document.querySelectorAll(".dropdown");
+  const dropBtns = document.querySelectorAll(".dropbtn");
 
-  // Vérifie que les éléments existent
+  // Vérification de base
   if (!burger || !navLinks) {
-    console.error("❌ #burger ou #nav-links introuvable");
+    console.error("❌ Éléments navbar introuvables (#burger ou #nav-links)");
     return;
   }
 
-  console.log("✅ JS chargé !");
+  console.log("✅ JS chargé correctement !");
 
-  // Ouvre/ferme le menu
-  burger.addEventListener("click", () => {
-    console.log("👉 Clic détecté sur burger");
-    navLinks.classList.toggle("show");
-  });
-});
-
-// ✅ Gérer l'ouverture du sous-menu sur mobile
-document.addEventListener("DOMContentLoaded", () => {
-  const dropdownToggles = document.querySelectorAll(".dropdown > .dropbtn");
-
-  dropdownToggles.forEach(btn => {
-    btn.addEventListener("click", (e) => {
-      // Empêche le lien de rediriger tout de suite
-      e.preventDefault();
-
-      const dropdownContent = btn.nextElementSibling;
-
-      // Fermer tous les autres menus avant d'ouvrir celui-là
-      document.querySelectorAll(".dropdown-content").forEach(menu => {
-        if (menu !== dropdownContent) {
-          menu.classList.remove("show");
-        }
-      });
-
-      // Bascule l'ouverture du menu cliqué
-      dropdownContent.classList.toggle("show");
-    });
-  });
-});
-
-document.addEventListener("DOMContentLoaded", () => {
-  const burger = document.getElementById("burger");
-  const navLinks = document.getElementById("nav-links");
-  const dropdown = document.querySelector(".dropdown");
-  const dropdownContent = document.querySelector(".dropdown-content");
-  const dropBtn = document.querySelector(".dropbtn");
-
-  // ✅ Ouvrir/fermer le menu burger
+  /* ================================
+     🍔 Menu burger (mobile)
+  ================================== */
   burger.addEventListener("click", () => {
     navLinks.classList.toggle("show");
     burger.classList.toggle("open");
   });
 
-  // ✅ Gérer l'ouverture du sous-menu sur iPhone
-  dropBtn.addEventListener("click", (e) => {
-    e.preventDefault();
-    dropdownContent.classList.toggle("show");
+  /* ================================
+     🔽 Sous-menus (iPhone & mobile)
+  ================================== */
+  dropBtns.forEach((btn) => {
+    btn.addEventListener("click", (e) => {
+      // Empêche la redirection immédiate
+      e.preventDefault();
+
+      const dropdownContent = btn.nextElementSibling;
+
+      // Fermer les autres sous-menus si un autre est ouvert
+      document.querySelectorAll(".dropdown-content").forEach((menu) => {
+        if (menu !== dropdownContent) {
+          menu.classList.remove("show");
+        }
+      });
+
+      // Bascule l'affichage de celui cliqué
+      dropdownContent.classList.toggle("show");
+    });
   });
 
-  // ✅ Fermer le sous-menu quand on clique ailleurs
+  /* ================================
+     ❌ Fermer le sous-menu si clic en dehors
+  ================================== */
   document.addEventListener("click", (e) => {
-    if (!dropdown.contains(e.target)) {
-      dropdownContent.classList.remove("show");
+    let clickInsideDropdown = false;
+
+    dropdowns.forEach((dropdown) => {
+      if (dropdown.contains(e.target)) {
+        clickInsideDropdown = true;
+      }
+    });
+
+    if (!clickInsideDropdown) {
+      document.querySelectorAll(".dropdown-content").forEach((menu) => {
+        menu.classList.remove("show");
+      });
     }
   });
 });
